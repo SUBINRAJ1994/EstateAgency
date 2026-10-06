@@ -1,6 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+
+const heroSlides = [
+  {
+    id: 'prop-1',
+    img: '/assets/img/hero-carousel/hero-carousel-1.jpg',
+    location: 'Kochi, Kerala',
+    number: '204',
+    title: 'Olive Road Two',
+    badge: 'rent | ₹ 12,000/month',
+  },
+  {
+    id: 'prop-2',
+    img: '/assets/img/hero-carousel/hero-carousel-2.jpg',
+    location: 'Trivandrum, Kerala',
+    number: '247',
+    title: 'Venda Road Five',
+    badge: 'sale | ₹ 3.56 Crore',
+  },
+  {
+    id: 'prop-3',
+    img: '/assets/img/hero-carousel/hero-carousel-3.jpg',
+    location: 'Bangalore, Karnataka',
+    number: '247',
+    title: 'Vitra Road Three',
+    badge: 'rent | ₹ 30,000/month',
+  },
+];
 
 const Home = ({ onPageChange, onSelectProperty }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto advance slides every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleNextSlide = (e) => {
+    e.preventDefault();
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const handlePrevSlide = (e) => {
+    e.preventDefault();
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
+
   useEffect(() => {
     // Initialize AOS animations
     if (window.AOS) {
@@ -38,72 +85,63 @@ const Home = ({ onPageChange, onSelectProperty }) => {
     <>
       {/* Hero Section */}
       <section id="hero" className="hero section dark-background">
-        <div id="hero-carousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div id="hero-carousel" className="carousel slide">
           <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img src="/assets/img/hero-carousel/hero-carousel-1.jpg" alt="Olive Road" />
-              <div className="carousel-container">
-                <div>
-                  <p>Kochi, Kerala</p>
-                  <h2><span>204</span> Olive Road Two</h2>
-                  <a 
-                    href="#property-detail" 
-                    className="btn-get-started"
-                    onClick={(e) => handlePropertyClick('prop-1', e)}
-                  >
-                    rent | ₹ 12,000/month
-                  </a>
+            {heroSlides.map((slide, index) => (
+              <div
+                key={slide.id}
+                className={`carousel-item ${index === currentSlide ? 'active' : ''}`}
+              >
+                <img 
+                  src={slide.img} 
+                  alt={slide.title} 
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                />
+                <div className="carousel-container">
+                  <div>
+                    <p>{slide.location}</p>
+                    <h2><span>{slide.number}</span> {slide.title}</h2>
+                    <a 
+                      href="#property-detail" 
+                      className="btn-get-started"
+                      onClick={(e) => handlePropertyClick(slide.id, e)}
+                    >
+                      {slide.badge}
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="carousel-item">
-              <img src="/assets/img/hero-carousel/hero-carousel-2.jpg" alt="Venda Road" />
-              <div className="carousel-container">
-                <div>
-                  <p>Trivandrum, Kerala</p>
-                  <h2><span>247</span> Venda Road Five</h2>
-                  <a 
-                    href="#property-detail" 
-                    className="btn-get-started"
-                    onClick={(e) => handlePropertyClick('prop-2', e)}
-                  >
-                    sale | ₹ 3.56 Crore
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="carousel-item">
-              <img src="/assets/img/hero-carousel/hero-carousel-3.jpg" alt="Vitra Road" />
-              <div className="carousel-container">
-                <div>
-                  <p>Bangalore, Karnataka</p>
-                  <h2><span>247</span> Vitra Road Three</h2>
-                  <a 
-                    href="#property-detail" 
-                    className="btn-get-started"
-                    onClick={(e) => handlePropertyClick('prop-5', e)}
-                  >
-                    rent | ₹ 30,000/month
-                  </a>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
-          <a className="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
+          <a 
+            className="carousel-control-prev" 
+            href="#prev" 
+            role="button" 
+            onClick={handlePrevSlide}
+          >
             <span className="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
           </a>
 
-          <a className="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
+          <a 
+            className="carousel-control-next" 
+            href="#next" 
+            role="button" 
+            onClick={handleNextSlide}
+          >
             <span className="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
           </a>
 
           <div className="carousel-indicators">
-            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            {heroSlides.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                className={index === currentSlide ? 'active' : ''}
+                aria-label={`Slide ${index + 1}`}
+                onClick={() => setCurrentSlide(index)}
+              ></button>
+            ))}
           </div>
         </div>
       </section>
