@@ -113,7 +113,7 @@ const Header = ({ currentPage, onPageChange }) => {
                 className={currentPage === 'contact' ? 'active' : ''}
                 onClick={(e) => handlePageClick('contact', e)}
               >
-                Contact
+                Contact Us
               </a>
             </li>
           </ul>

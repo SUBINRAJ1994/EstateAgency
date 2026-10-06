@@ -57,7 +57,7 @@ const Footer = ({ onPageChange }) => {
       <div className="container copyright text-center mt-4">
         <p>© <span>Copyright</span> <strong className="px-1 sitename">EstateAgency</strong> <span>All Rights Reserved</span></p>
         <div className="credits">
-          Designed by <a href="https://bootstrapmade.com/" target="_blank" rel="noopener noreferrer">BootstrapMade</a> | Rebuilt in React for Subin Raj S S
+          Designed and Rebuilt in React for <b><i>Subin Raj S S</i></b>
         </div>
       </div>
     </footer>

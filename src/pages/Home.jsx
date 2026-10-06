@@ -292,10 +292,14 @@ const Home = ({ onPageChange, onSelectProperty }) => {
               <div className="swiper-slide">
                 <div className="testimonial-item">
                   <div className="stars">
-                    <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    <i className="bi bi-star-fill"></i>
+                    <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                   </div>
                   <p>
-                    "Finding a rented apartment in Kochi was extremely smooth. The team handled everything from rent agreement drafting to property selection efficiently."
+                    "Finding a rented apartment in Kochi was extremely smooth. 
+                    The team handled everything from rent agreement drafting to property selection 
+                    efficiently."
                   </p>
                   <div className="profile mt-auto">
                     <img src="/assets/img/testimonials/testimonials-1.jpg" className="testimonial-img" alt="Saul Goodman" />
@@ -338,6 +342,29 @@ const Home = ({ onPageChange, onSelectProperty }) => {
               </div>
             </div>
             <div className="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Us CTA Section */}
+      <section className="section py-5 light-background">
+        <div className="container" data-aos="fade-up">
+          <div className="row align-items-center justify-content-between p-4 p-lg-5 rounded-4 bg-white shadow-sm border">
+            <div className="col-lg-8">
+              <h2 className="fw-bold mb-2">Have Questions About Buying, Selling, or Renting?</h2>
+              <p className="text-muted mb-0">
+                Reach out to our expert team for personalized guidance, property visits, and legal paperwork support.
+              </p>
+            </div>
+            <div className="col-lg-4 text-lg-end mt-4 mt-lg-0">
+              <button 
+                type="button" 
+                className="btn-send px-4 py-3"
+                onClick={() => onPageChange('contact')}
+              >
+                <i className="bi bi-envelope-fill me-2"></i> Contact Us
+              </button>
+            </div>
           </div>
         </div>
       </section>
